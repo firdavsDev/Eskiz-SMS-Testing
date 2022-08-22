@@ -34,7 +34,7 @@ class BaseAPI:
             Create token and save to database
         '''
         try:
-            resp = requests.post(f'{self.base_url}/auth/login', data={'email': 'mr.maruf92@mail.ru', 'password': "rZiBgSU4SJiieACh2g16hFKzsv9eqyUpu9Ucbk1A"})
+            resp = requests.post(f'{self.base_url}/auth/login', data={'email': self.email, 'password': self.password})
             data = resp.json()
             if resp.status_code != 200:
                 raise Exception(data['message'])
