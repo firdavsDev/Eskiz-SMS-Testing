@@ -14,3 +14,4 @@ python manage.py migrate
 python manage.py runserver 
 
 Open localhost:8000/sms/send 
+

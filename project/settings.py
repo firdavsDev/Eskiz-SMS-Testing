@@ -1,8 +1,9 @@
+import logging
+import logging.config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -27,6 +28,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'sms',
     'rest_framework',
+    #celery 3rd apps
+    'django_celery_beat',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +129,40 @@ REST_FRAMEWORK = {
 import os
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+#celery settings
+CELERY_TIMEZONE = "Asia/Tashkent"
+
+CELERY_RESULT_BACKEND = "django-db"
+# this allows you to schedule items in the Django admin.
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
+
+#Redis settings
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+
+# log file 
+logging.config.dictConfig(
+    {
+        "version": 1,
+        "disable_existing_loggers": False,
+        "formatters": {
+            "file": {"format": "%(asctime)s %(name)-12s %(levelname)-8s %(message)s"},
+        },
+        "handlers": {
+            "file": {
+                "level": "INFO",
+                "class": "logging.FileHandler",
+                "formatter": "file",
+                "filename": "debug.log",
+            },
+        },
+        "loggers": {
+            "": {"level": "INFO", "handlers": [ "file"]},
+            "django.request": {"level": "INFO", "handlers": [ "file"]},
+        },
+    }
+)
