@@ -2,6 +2,9 @@
 Eskiz SMS sending via code generators 
 
 
+set eskiz email and password in sms->helper.py
+
+
 # SetUp project your machine
     python -v venv venv
     source venv/bin/activate
