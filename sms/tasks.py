@@ -4,7 +4,7 @@ from celery import shared_task
 
 
 @shared_task()
-def send_sms_to_user(phone_number=998997707375):
+def send_sms_to_user(phone_number=998971122202):
     '''
         Task vazisi userga sms xabar yuborish
     '''

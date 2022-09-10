@@ -7,6 +7,10 @@ class SMSTokenAdmin(admin.ModelAdmin):
     list_display = ['name', 'token']
     search_fields = ['name']
 
+    @admin.display(description='SMSToken')
+    def token(self, obj):
+        return obj.content[:0]
+
 admin.site.register(SMSToken, SMSTokenAdmin)
 
 

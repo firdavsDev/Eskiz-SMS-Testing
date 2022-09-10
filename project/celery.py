@@ -21,7 +21,7 @@ app.conf.beat_schedule = {
     'run-every-30-seconds': {
         'task': 'sms.tasks.send_sms_to_user',
         'schedule': 30.0, #every 30 seccond run our task function(send_sms_to_user)
-        # 'args': 9989********
+        # 'args': 9989*******
     },
 }
 

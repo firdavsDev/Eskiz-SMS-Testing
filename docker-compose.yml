@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+
+  django: &django
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: sms
+    container_name: django
+    volumes:
+      - .:/app:cached
+    ports:
+      - "8000:8000"
+    command: /start
+
+  redis:
+      image: redis:6.2-alpine
+      container_name: redis
+      ports:
+        - "6379:6379"
+  
+  celery:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: celery -A project worker -l info
+    volumes:
+      - .:/app:cached
+    depends_on:
+      - redis
+  
+  celery-beat:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: celery -A project worker -l info
+    volumes:
+      - .:/app:cached
+    depends_on:
+      - redis
+

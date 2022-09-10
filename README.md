@@ -26,5 +26,5 @@ set eskiz email and password in sms->helper.py
 
 # At least 3 Processes Running (at least)
     python manage.py runserver
-    celery -A cfehome worker --beat -l info
+    celery -A project worker --beat -l info
     redis-server
